@@ -14,24 +14,23 @@ client.on("ready", () => {
 });
 
 client.on("message", function (message) {
-    if ((message.author.id == 181493692895330304 || message.author.id == 157273960776597504 || message.author.id == 814957326082900019) && (message.channel.type === "dm" || message.isMemberMentioned(client.user))) {
-    prompt += `You: ${message.content}\n`;
+    if ((message.channel.type === "dm" || message.isMemberMentioned(client.user))) {
+    let msg = `${message.content}`.replace("<@!813033343712755772>", "");
     (async () => {
         const gptResponse = await openai.complete({
-            engine: 'text-davinci-002',
+            engine: 'text-ada-001',
             prompt: prompt,
             maxTokens: 90,
-            temperature: 0.87,
-            topP: 1,
-            presencePenalty: 0,
-            frequencyPenalty: 0.65,
+            temperature: 0.6,
+            topP: 0.6,
+            presencePenalty: 0.3,
+            frequencyPenalty: 0.3,
             stream: false,
-            stop: ['AI:']
+            stop: ['AI:', message.author.id + ':']
         });
         gpt = `${gptResponse.data.choices[0].text}`;
         response = gpt.replace("titbot: ", "")
         message.channel.send(response);
-        prompt += `${response}\n`;
     })();
 	}
  });
