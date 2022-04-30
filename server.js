@@ -15,7 +15,6 @@ client.on("ready", () => {
 
 client.on("message", function (message) {
     if ((message.channel.type === "dm" || message.isMemberMentioned(client.user))) {
-    let msg = `${message.content}`.replace("<@!813033343712755772>", "");
     (async () => {
         const gptResponse = await openai.complete({
             engine: 'text-ada-001',
@@ -26,7 +25,7 @@ client.on("message", function (message) {
             presencePenalty: 0.3,
             frequencyPenalty: 0.3,
             stream: false,
-            stop: ['AI:', message.author.id + ':']
+            stop: ['AI:']
         });
         gpt = `${gptResponse.data.choices[0].text}`;
         response = gpt.replace("titbot: ", "")
