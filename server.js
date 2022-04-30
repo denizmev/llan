@@ -28,9 +28,9 @@ client.on("message", function (message) {
                 stop: [" Human:", " AI:"],
             });
             gpt = `${gptResponse.data.choices[0].text}`;
-            response = gpt.replace("titbot: ", "")
+            response = gpt.replace("titbot: ", "");
             message.channel.send(response);
-            prompt += gpt + `\n`;
+            prompt += `${response}\n`;
     })();
 	}
  });
