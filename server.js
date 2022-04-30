@@ -16,7 +16,7 @@ client.on("ready", () => {
 
 client.on("message", function (message) {
     if ((message.channel.type === "dm" || message.isMemberMentioned(client.user)) && message.author.id != client.user.id) {
-        reply = message.content.replace(<@813033343712755772!>,"");
+        let reply = message.content.replace("<@813033343712755772!>","");
         (async () => {
             const gptResponse = await openai.complete({
                 engine: 'text-ada-001',
