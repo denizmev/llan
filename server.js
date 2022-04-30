@@ -10,11 +10,11 @@ let prompt = "thebot is a no-nonsense, cold, intelligent and pragmatic bot. It w
 app.listen(PORT, () => {});
 
 client.on("ready", () => {
-  client.user.setActivity( "Let's chat!")
+  client.user.setActivity( "Ask me something.")
 });
 
 client.on("message", function (message) {
-    if ((message.channel.type === "dm" || message.isMemberMentioned(client.user))) {
+    if (message.channel.type === "dm" || message.isMemberMentioned(client.user)) {
     (async () => {
         const gptResponse = await openai.complete({
             engine: 'text-ada-001',
@@ -27,9 +27,7 @@ client.on("message", function (message) {
             stream: false,
             stop: ['AI:']
         });
-        gpt = `${gptResponse.data.choices[0].text}`;
-        response = gpt.replace("thebot: ", "")
-        message.channel.send(response);
+        message.channel.send(`${gptResponse.data.choices[0].text}`);
     })();
 	}
  });
