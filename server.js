@@ -19,7 +19,7 @@ client.on("message", function (message) {
         (async () => {
             const gptResponse = await openai.complete({
                 engine: 'text-ada-001',
-                prompt: prompt + message.author.id + `: ${message.content}\n` ,
+                prompt: prompt + `You: ${message.content}\n` ,
                 temperature: 0.8,
                 max_tokens: 90,
                 top_p: 0.8,
