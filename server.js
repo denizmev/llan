@@ -17,10 +17,9 @@ client.on("ready", () => {
 client.on("message", function (message) {
     if ((message.channel.type === "dm" || message.isMemberMentioned(client.user)) && message.author.id != client.user.id) {
         (async () => {
-            prompt += `message.author.id: ${message.content}\n`;
             const gptResponse = await openai.complete({
                 engine: 'text-ada-001',
-                prompt: prompt + `Human: ${message.content}\n` ,
+                prompt: prompt + `message.author.id: ${message.content}\n` ,
                 temperature: 0.8,
                 max_tokens: 90,
                 top_p: 0.8,
@@ -29,9 +28,9 @@ client.on("message", function (message) {
                 stop: [" Human:", " AI:"],
             });
             gpt = `${gptResponse.data.choices[0].text}`;
-            reply = gpt.replace("titbot:", "")
-            message.channel.send(reply);
-            prompt += `${gpt}\n`;
+            response = gpt.replace("titbot: ", "")
+            message.channel.send(response);
+            prompt += `${response}\n`;
     })();
 	}
  });
