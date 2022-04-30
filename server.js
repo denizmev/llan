@@ -20,11 +20,11 @@ client.on("message", function (message) {
             const gptResponse = await openai.complete({
                 engine: 'text-ada-001',
                 prompt: prompt + `You: ${message.content}\n` ,
-                temperature: 0.8,
-                max_tokens: 90,
-                top_p: 0.8,
-                frequency_penalty: 0.6,
-                presence_penalty: 0.6,
+                temperature: 0.6,
+                max_tokens: 80,
+                top_p: 1,
+                frequency_penalty: 0.8,
+                presence_penalty: 0.8,
                 stop: [" Human:", " AI:", " titbot: ", " Deniz: "],
             });
             gpt = `${gptResponse.data.choices[0].text}`;
