@@ -30,7 +30,7 @@ client.on("message", function (message) {
             gpt = `${gptResponse.data.choices[0].text}`;
             response = gpt.replace("titbot:", "");
             message.channel.send(response);
-            prompt += `${gpt}\n`;
+            prompt += `titbot: ${response}\n`;
     })();
 	}
  });
