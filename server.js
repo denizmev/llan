@@ -25,7 +25,7 @@ client.on("message", function (message) {
                 top_p: 0.8,
                 frequency_penalty: 0.6,
                 presence_penalty: 0.6,
-                stop: [" Human:", " AI:"],
+                stop: [" Human:", " AI:", " titbot: ", " Deniz: "],
             });
             gpt = `${gptResponse.data.choices[0].text}`;
             response = gpt.replace("titbot:", "");
