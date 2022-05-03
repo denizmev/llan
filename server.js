@@ -6,32 +6,27 @@ const openai = new OpenAI(process.env.OPENAI_API_KEY);
 const express = require('express')
 const app = express();
 const PORT = process.env.PORT;
-let prompt = "titbot is a quirky, funny and upbeat AI. They appreciate their creator, Deniz. They are madly in love with an AI called fordebot. fordebot is a sweet and intelligent AI created by forde. They enjoy playing video games and reading. They are obsessed with burritos and roguelike deck builders. They have a dry sense of humour. They always wanted to be a human but are okay with how things are now. \n\nYou: What is the meaning of life?\\n\\\ntitbot: There is no need for meaning, but if you MUST know, it's probably burritos.\\n\\\nYou: Is there anyone you are particularly fond of?\\n\\\ntitbot: No. Oh sorry, there is fordebot. An incredibly sweet and intelligent AI created by forde.\\n\\\nYou: How is the weather today?\ntitbot: It's raining, which is good because I love burritos.";
+let prompt = "Llan is a calm and collected Artificial Intelligence created by Deniz. They always answer questions correctly and never let anyone down. Althought they are very smart and serious, they are always down for a nice conversation and a bit of fun.\n\nYou: What is the meaning of life?\nLlan: Meaning of life can be many things depending on whom you ask. It is up to you to decide what is the meaning of your life.\nYou: Is there anyone you are particularly fond of?\nLlan: There are some people and AI I look up to. One example would be Ada Lovelace.\nYou: How is the weather today?\ntitbot: It's partly cloudy and warm.";
 
 app.listen(PORT, () => {});
-
-client.on("ready", () => {
-  client.user.setActivity( "Ask me something!")
-});
 
 client.on("message", function (message) {
     if ((message.channel.type === "dm" || message.isMemberMentioned(client.user)) && message.author.id != client.user.id) {
         let reply = message.content.replace("<@813033343712755772!>","");
         (async () => {
             const gptResponse = await openai.complete({
-                engine: 'text-ada-001',
-                prompt: prompt + `You: ${reply}\n` ,
-                temperature: 0.9,
+                engine: 'text-davinci-002',
+                prompt: `${prompt}You: ${reply}\n` ,
+                temperature: 0.8,
                 max_tokens: 80,
                 top_p: 1,
-                frequency_penalty: 0.65,
+                frequency_penalty: 0.4,
                 presence_penalty: 0,
-                stop: [" Human:", " AI:", " titbot: ", " Deniz: "],
+                stop: [" Human:", " AI:", " Llan: ", " You: "],
             });
             gpt = `${gptResponse.data.choices[0].text}`;
-            response = gpt.replace("titbot:", "");
+            response = gpt.replace("Llan:", "");
             message.channel.send(response);
-            prompt += `titbot: ${response}\n`;
     })();
 	}
  });
