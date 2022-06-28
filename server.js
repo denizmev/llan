@@ -24,8 +24,8 @@ client.on("message", function (message) {
                 presence_penalty: 0,
                 stop: [" Human:", " AI:", " Llan: ", " You: "],
             });
-            gpt = `${gptResponse.data.choices[0].text}`;
-            response = gpt.replace("Llan:", "");
+            let response = `${gptResponse.data.choices[0].text}`;
+            response = response.replace("Llan:", "");
             message.channel.send(response);
     })();
 	}
